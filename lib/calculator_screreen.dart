@@ -58,7 +58,7 @@ class MyHomePage extends ConsumerWidget {
           Slider(
             value: sliderOneValue,
             onChanged: (value) =>
-                ref.read(sliderOneValueProvider.notifier).updateValue(value),
+                ref.read(sliderOneValueProvider.notifier).state = value,
           ),
           Text(
             ((sliderTwoValue * 100).round()).toString(),
