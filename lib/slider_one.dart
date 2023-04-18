@@ -13,4 +13,4 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //   }
 // }
 
-final sliderOneValueProvider = StateProvider<double>((ref) => 0);
+final sliderOneValueProvider = StateProvider<double>((ref) => 0 * 100);

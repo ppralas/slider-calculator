@@ -17,56 +17,39 @@ class MyHomePage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SliderCalculator'),
+        title: const Text('Slider Calculator'),
       ),
       body: Column(
         children: [
           DropdownButton<Operation>(
             value: operation,
             onChanged: (Operation? newValue) {
-              ref
-                  //.notifier mora doc da znam da se mjenja vrijednost
-                  .read(operationProvider.notifier)
-                  .setOperation(newValue ?? Operation.zbroj);
+              ref.watch(operationProvider.notifier);
             },
-            items: const [
-              DropdownMenuItem(
-                value: Operation.zbroj,
-                child: Text('Zbroj'),
-              ),
-              DropdownMenuItem(
-                value: Operation.razlika,
-                child: Text('Razlika'),
-              ),
-              DropdownMenuItem(
-                value: Operation.umnozak,
-                child: Text('Umnozak'),
-              ),
-              DropdownMenuItem(
-                value: Operation.kolicnik,
-                child: Text('Kolicnik'),
-              ),
-              DropdownMenuItem(
-                value: Operation.ostatak,
-                child: Text('Ostatak'),
-              ),
-            ],
+            items: Operation.values
+                .map((operation) => DropdownMenuItem(
+                      value: operation,
+                      child: Text((operation.name)),
+                    ))
+                .toList(),
           ),
           Text(
-            ((sliderOneValue * 100).round()).toString(),
+            ((sliderOneValue).round()).toString(),
           ),
           Slider(
-            value: sliderOneValue,
-            onChanged: (value) =>
-                ref.read(sliderOneValueProvider.notifier).state = value,
+            value: ref.watch(sliderOneValueProvider),
+            onChanged: (value) => ref
+                .watch(sliderOneValueProvider.notifier)
+                .update((sliderOneValue) => value),
           ),
           Text(
-            ((sliderTwoValue * 100).round()).toString(),
+            ((sliderTwoValue).round()).toString(),
           ),
           Slider(
             value: sliderTwoValue,
-            onChanged: (value) =>
-                ref.read(sliderTwoValueProvider.notifier).updateValue(value),
+            onChanged: (value) => ref
+                .watch(sliderTwoValueProvider.notifier)
+                .update((state) => value),
           ),
           Text(
             (result.toString()),

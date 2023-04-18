@@ -8,6 +8,23 @@ enum Operation {
   ostatak,
 }
 
+extension OperationExtension on Operation {
+  String get name {
+    switch (this) {
+      case Operation.zbroj:
+        return "Zbroj";
+      case Operation.razlika:
+        return "Razlika";
+      case Operation.umnozak:
+        return "Umnožak";
+      case Operation.kolicnik:
+        return "Količnik";
+      case Operation.ostatak:
+        return "Ostatak";
+    }
+  }
+}
+
 // final operationProvider = StateNotifierProvider<OperationNotifier, Operation>(
 //   (ref) => OperationNotifier(),
 // );
